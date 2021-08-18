@@ -1,0 +1,12 @@
+
+## 使いそうなオプション
+* -a, --batch-file FILE
+    * 動画URLを記述したファイルを指定してまとめてダウンロードする。
+* --id
+    * ファイル名を動画IDのみとする。後述の-oと併用するとconflictで停止する。
+* -f wave
+wave形式でｄｌする
+* -x
+    * 音声のみｄｌ
+* –download-archive finished.txt
+ * ダウンロード済みのIDを記録してスキップしてくれる
