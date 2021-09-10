@@ -13,7 +13,8 @@ echo 6
 :: ƒ‰ƒxƒ‹ˆê——‚ÌCSV‚ð“Ç‚Þ
 FOR /F "tokens=1 delims=, " %%a IN (%tar%/labels.csv) DO (
     cd result
-    cd ..
+    mkdir %%a
+    cd ../..
     echo "%%a start"
     ::ƒ‰ƒxƒ‹–ˆ‚É
     FOR /F "tokens=1,2,3" %%x IN (%tar%/%%a.csv) DO (
