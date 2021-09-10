@@ -11,16 +11,16 @@ IF {%~1}=={} (
 )
 echo 6
 :: ƒ‰ƒxƒ‹ˆê——‚ÌCSV‚ð“Ç‚Þ
+cd result
 FOR /F "tokens=1 delims=, " %%a IN (%tar%/labels.csv) DO (
-    cd result
+
     mkdir %%a
-    cd ../..
     echo "%%a start"
     ::ƒ‰ƒxƒ‹–ˆ‚É
     FOR /F "tokens=1,2,3" %%x IN (%tar%/%%a.csv) DO (
-        cd result/%%a
+        cd %%a
         call :download_cat %%x %%y %%z
-        cd ../..
+        cd ..
         echo "sleep 2 second"
         powershell sleep 2
 
