@@ -12,7 +12,7 @@ IF {%~1}=={} (
 echo 6
 :: ƒ‰ƒxƒ‹ˆê——‚ÌCSV‚ð“Ç‚Þ
 cd result
-FOR /F "tokens=1 delims=, " %%a IN (%tar%/labels.csv) DO (
+FOR /F "tokens=1 delims=, " %%a IN (./%tar%/labels.csv) DO (
 
     mkdir %%a
     echo "%%a start"
