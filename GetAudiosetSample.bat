@@ -1,47 +1,39 @@
-::パラメータに目的のcsvファイル名から.csvを消したものを与える
 @echo off
-:: sample_rate
+
 set sr =22050
 
+REM ===main
 
-
-
-::./youtube-dl
-
-REM === メイン処理
-
-:: CSVファイルを持ってくるディレクトリのパスが第一引数である
-:: デフォルトがtarget/
-IF "%1" == ""(
-    set tar ="target/"
+IF {%~1}=={} (
+    set "tar=target"
 ) else (
-    set tar ="%1/"
+    set "tar=%~1"
 )
-:: ラベル一覧のCSVを読む
-:: FOR /F "tokens=1,2 delims=," %%a IN (target/labels.csv) do (
-FOR /F "tokens=1,2 delims=," %%a IN (tar/labels.csv) do (
-    cd result
+echo 6
+:: ���x���ꗗ��CSV��ǂ�
+cd result
+FOR /F "tokens=1 delims=, " %%a IN (%tar%/labels.csv) DO (
+
     mkdir %%a
-    cd ..
     echo "%%a start"
-    :: ラベル毎のCSVのデータからダウンロードを行う
-    FOR /F "tokens=1,2,3" %%x IN (target/%%a.csv) do (
-        cd result/%%a
+    ::���x������
+    FOR /F "tokens=1,2,3" %%x IN (%tar%/%%a.csv) DO (
+        cd %%a
         call :download_cat %%x %%y %%z
-        cd ../..
-        echo "sleep 2 seconds"
+        cd ..
+        echo "sleep 2 second"
         powershell sleep 2
+
     )
     echo "%%a finish"
 )
+pause
 exit /b
 
-REM === 関数
+REM ===�֐�
 :download_cat
-   :: echo %1,%2,%3
-    
+
     youtube-dl https://www.youtube.com/watch?v=%1 -x --audio-format wav --id %-x --audio-format wav --id
     ffmpeg -loglevel quiet -i "%1.wav" -ss %2 -to %3 "out_%1.wav"
     move /y "out_%1.wav" "%1.wav"
-
 exit /b
