@@ -17,7 +17,7 @@ FOR /F "tokens=1 delims=, " %%a IN (../%tar%/labels.csv) DO (
     mkdir %%a
     echo "%%a start"
     ::ƒ‰ƒxƒ‹–ˆ‚É
-    FOR /F "tokens=1,2,3" %%x IN (%tar%/%%a.csv) DO (
+    FOR /F "tokens=1,2,3" %%x IN (../%tar%/%%a.csv) DO (
         cd %%a
         call :download_cat %%x %%y %%z
         cd ..
