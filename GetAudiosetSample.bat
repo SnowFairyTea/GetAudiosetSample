@@ -1,6 +1,9 @@
 @echo off
 
 set sr =22050
+:: ï¿óÒêî
+set PARALLEL=100
+
 
 REM ===main
 
@@ -19,11 +22,11 @@ FOR /F "tokens=1 delims=, " %%a IN (../%tar%/labels.csv) DO (
     ::ÉâÉxÉãñàÇ…
     FOR /F "tokens=1,2,3" %%x IN (../%tar%/%%a.csv) DO (
         cd %%a
-        call :download_cat %%x %%y %%z
+        start cmd /c download_cat.bat %%x %%y %%z
         cd ..
-        echo "sleep 2 second"
-        powershell sleep 2
-
+        goto :wait_loop
+        :end_wait_loop
+        
     )
     echo "%%a finish"
 )
@@ -31,9 +34,14 @@ pause
 exit /b
 
 REM ===ä÷êî
-:download_cat
+:wait_loop
+    
+    for /f "usebackq delims=" %%A in (`tasklist^|find /c "cmd"`) do set CMDcount=%%A
 
-    youtube-dl https://www.youtube.com/watch?v=%1 -x --audio-format wav --id %-x --audio-format wav --id
-    ffmpeg -loglevel quiet -i "%1.wav" -ss %2 -to %3 "out_%1.wav"
-    move /y "out_%1.wav" "%1.wav"
-exit /b
+    if %CMDcount% leq %PARALLEL% (
+        goto :end_wait_loop
+    )
+
+    goto :wait_loop
+    
+exit /B

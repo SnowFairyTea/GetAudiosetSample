@@ -10,3 +10,7 @@ wave形式でｄｌする
     * 音声のみｄｌ
 * –download-archive finished.txt
  * ダウンロード済みのIDを記録してスキップしてくれる
+
+
+tasklist|find /c "cmd"
+で動いてるコマンドプロンプトの数が分かる
