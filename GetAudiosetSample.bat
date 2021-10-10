@@ -1,8 +1,8 @@
-@echo off
+
 
 set sr =22050
 :: •À—ñ”
-set PARALLEL=100
+set PARALLEL=10
 
 
 REM ===main
