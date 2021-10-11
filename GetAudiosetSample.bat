@@ -1,8 +1,8 @@
 
 
-set sr =22050
+set sr=22050
 :: ï¿óÒêî
-set PARALLEL=10
+set MAXp=30
 
 
 REM ===main
@@ -26,8 +26,7 @@ FOR /F "tokens=1 delims=, " %%a IN (..\%tar%\labels.csv) DO (
         cd %%a
         start cmd /c download_cat.bat %%x %%y %%z
         cd ..
-        goto :wait_loop
-        :end_wait_loop
+        call wait_loop.bat %MAXp%
         
     )
     echo "%%a finish"
@@ -36,14 +35,3 @@ pause
 exit /b
 
 REM ===ä÷êî
-:wait_loop
-    
-    for /f "usebackq delims=" %%A in (`tasklist^|find /c "cmd"`) do set CMDcount=%%A
-
-    if %CMDcount% leq %PARALLEL% (
-        goto :end_wait_loop
-    )
-
-    goto :wait_loop
-    
-exit /B

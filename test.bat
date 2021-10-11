@@ -1,21 +1,18 @@
+setlocal
+::set PARALLEL=10
 
-set PARALLEL=10
 
 
-:b
-start cmd /c test_called.bat
-goto :aaaa
+for %%i in (1,2,3,4,5) do (
+    start cmd /c test_called.bat
+    
+    call wait_loop.bat 3
 
+    
+    pause
+)
 pause
 goto :eof
 REM==関数
-:aaaa
-    
-    for /f "usebackq delims=" %%A in (`tasklist^|find /c "cmd"`) do set CMDcount=%%A
-
-    if %CMDcount% leq %PARALLEL% (
-        goto :b
-    )
-    goto :aaaa
     
 exit /b
