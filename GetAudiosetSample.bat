@@ -22,11 +22,14 @@ FOR /F "tokens=1 delims=, " %%a IN (..\%tar%\labels.csv) DO (
     mkdir %%a
     echo "%%a start"
     ::ƒ‰ƒxƒ‹–ˆ‚É
+    
     FOR /F "tokens=1,2,3" %%x IN (..\%tar%\%%a.csv) DO (
         cd %%a
-        start cmd /c download_cat.bat %%x %%y %%z
+        
+        start cmd /c ..\..\download_cat.bat %%x %%y %%z
+        call ..\..\wait_loop.bat %MAXp%
         cd ..
-        call wait_loop.bat %MAXp%
+        powershell sleep 1
         
     )
     echo "%%a finish"
