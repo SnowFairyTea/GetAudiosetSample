@@ -6,7 +6,7 @@ setlocal
 for %%i in (1,2,3,4,5) do (
     start cmd /c test_called.bat
     
-    call wait_loop.bat 3
+    call wait_loop.bat 6
 
     
     pause
