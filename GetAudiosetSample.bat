@@ -1,4 +1,4 @@
-
+@echo off
 
 set sr=22050
 :: ï¿óÒêî
@@ -19,20 +19,31 @@ dir ..\%tar%
 
 FOR /F "tokens=1 delims=," %%a IN (..\%tar%\labels.csv) DO ( 
 
-    mkdir %%a
-    echo "%%a start"
-    
-    
-    FOR /F "tokens=1,2,3" %%x IN (..\%tar%\%%a.csv) DO ( 
-        cd %%a
+    for /f "usebackq delims=" %%A in (`dir^|find /c "%%a"`) do (
+        set FolderCount=%%A
+    )
+    if FolderCount gtr 0 (
+            
+            echo "%%a pass!!!!!"
+    ) else ( 
+        mkdir %%a
+
+
+
+        echo "%%a start"
         
-        start cmd /c ..\..\download_cat.bat %%x %%y %%z
-        call ..\..\wait_loop.bat %MAXp%
-        cd ..
-        powershell sleep 1
         
-    ) 
-    echo "%%a finish"
+        FOR /F "tokens=1,2,3" %%x IN (..\%tar%\%%a.csv) DO ( 
+            cd %%a
+            
+            start cmd /c ..\..\download_cat.bat %%x %%y %%z
+            call ..\..\wait_loop.bat %MAXp%
+            cd ..
+            powershell sleep 1
+            
+        ) 
+        echo "%%a finish"
+    )
 ) 
 pause
 exit /b

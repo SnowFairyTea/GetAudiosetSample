@@ -1,17 +1,23 @@
 setlocal
 ::set PARALLEL=10
 
-
-
-for %%i in (1,2,3,4,5) do (
-    start cmd /c test_called.bat
+for /f "usebackq delims=" %%A in (`dir^|find /c "result"`) do (
     
-    call wait_loop.bat 6
-
-    
+    if %%A gtr 0 (
+        
+        echo 1
+        pause
+        exit /b
+    ) else (
+        echo 1
+        pause
+        exit /b
+    )
     pause
 )
 pause
+
+
 goto :eof
 REM==関数
     
