@@ -22,7 +22,7 @@ FOR /F "tokens=1 delims=," %%a IN (..\%tar%\labels.csv) DO (
     for /f "usebackq delims=" %%A in (`dir^|find /c "%%a"`) do (
         set FolderCount=%%A
     )
-    if FolderCount neq 0 (
+    if %FolderCount% neq 0 (
             
             echo "%%a pass!!!!!"
     ) else ( 
