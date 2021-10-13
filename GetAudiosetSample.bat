@@ -16,31 +16,17 @@ echo 6
 :: ƒ‰ƒxƒ‹ˆê——‚ÌCSV‚ð“Ç‚Þ
 cd result
 dir ..\%tar%
-
+pause
 FOR /F "tokens=1 delims=," %%a IN (..\%tar%\labels.csv) DO ( 
 
-    for /f "usebackq delims=" %%A in (`dir^|find /c "%%a"`) do (
-        set FolderCount=%%A
-    )
-    if %FolderCount% neq 0 (
-            
-            echo "%%a pass!!!!!"
-    ) else ( 
         mkdir %%a
-
-
-
         echo "%%a start"
-        
-        
         FOR /F "tokens=1,2,3" %%x IN (..\%tar%\%%a.csv) DO ( 
             cd %%a
-            
             start cmd /c ..\..\download_cat.bat %%x %%y %%z
             call ..\..\wait_loop.bat %MAXp%
             cd ..
             powershell sleep 1
-            
         ) 
         echo "%%a finish"
     )

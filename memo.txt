@@ -14,3 +14,12 @@ wave形式でｄｌする
 
 tasklist|find /c "cmd"
 で動いてるコマンドプロンプトの数が分かる
+
+以下、動かなくて消したやつ
+
+    for /f "usebackq delims=" %%f in (`dir^|find /c "%%a"`) do ( 
+        set FolderCount=%%f
+    )
+    if %FolderCount% neq 0 (
+        echo "%%a pass!!!!!"
+    ) else ( 
