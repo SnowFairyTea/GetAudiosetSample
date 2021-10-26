@@ -3,7 +3,7 @@ setlocal
 
 for /f "usebackq delims=" %%A in (`dir^|find /c "result"`) do (
     
-    if %%A gtr 0 (
+    if {%%A} gtr {"0"} (
         
         echo 1
         pause
@@ -19,6 +19,6 @@ pause
 
 
 goto :eof
-REM==関数
+
     
 exit /b
