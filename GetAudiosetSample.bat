@@ -3,7 +3,7 @@
 set sr=22050
 :: ï¿óÒêî
 set MAXp=30
-
+set max_wav=100
 
 REM ===main
 
@@ -17,14 +17,22 @@ echo 6
 cd result
 dir ..\%tar%
 pause
+
 FOR /F "tokens=1 delims=," %%a IN (..\%tar%\labels.csv) DO ( 
 
         mkdir %%a
         echo "%%a start"
         FOR /F "tokens=1,2,3" %%x IN (..\%tar%\%%a.csv) DO ( 
             cd %%a
-            start cmd /c ..\..\download_cat.bat %%x %%y %%z
-            call ..\..\wait_loop.bat %MAXp%
+            
+            FOR /f "usebackq delims=" %%A IN (`dir^|find /c "wav"`) DO ( 
+                set wav_count=%%A 
+                ) 
+            
+            if {%wav_count%} leq {%max_wav%} ( 
+                start cmd /c ..\..\download_cat.bat %%x %%y %%z
+                call ..\..\wait_loop.bat %MAXp%
+            )
             cd ..
             powershell sleep 1
         ) 

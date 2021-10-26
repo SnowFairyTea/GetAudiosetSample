@@ -23,3 +23,15 @@ tasklist|find /c "cmd"
     if %FolderCount% neq 0 (
         echo "%%a pass!!!!!"
     ) else ( 
+
+
+
+            FOR /f "usebackq delims=" %%A IN (`dir^|find /c "wav"`) DO ( 
+                set wav_count=%%A 
+                ) 
+            echo %wav_count%
+            if %wav_count% leq %max_wav% ( 
+                start cmd /c ..\..\download_cat.bat %%x %%y %%z
+                call ..\..\wait_loop.bat %MAXp%
+            )
+
