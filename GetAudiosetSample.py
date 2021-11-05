@@ -1,5 +1,7 @@
 import os,sys,csv
 import youtube_dl
+import glob
+import ffmpeg
 
 from concurrent.futures import ThreadPoolExecutor
 
@@ -7,10 +9,12 @@ import subprocess
 import time
 
 from myYoutubedl import *
+from myffmpeg import *
+
 dprint=lambda x:print(x) 
 
 MAXWAVES = 50
-MAXPROCESS=20
+MAXPROCESS=8
 
 
 DIR = os.path.dirname(os.path.abspath(__file__))
@@ -44,7 +48,7 @@ def main():
                         
                         #スレッド化する
                         executor.submit(download_line,line)
-#                        download_line(line)
+                        #download_line(line)
                         time.sleep(0.7)
             executor.shutdown()
             os.chdir(DIR)
@@ -64,18 +68,18 @@ def download_line(line):
             
             myyoutubedl(myid)
 
-            pegscript=['ffmpeg','-loglevel','quiet',' -i', '"'+myid+'_long.wav"', '-ss', str(start), '-to', str(end) ,'"'+myid+'.wav"']
-            #dprint(pegscript)
-            subprocess.run(pegscript)
+            dprint(myid+start+end+"DL完了、切り取りします")
+            ffmpegCat(myid,start,end)
+            dprint(myid+"切り取り完了")#missってる
 
         else:
             dprint("もうあります")
-        pp(myid)
-        return 1
+        #pp(myid)
+        return 
     except:
         print(myid,":miss!!")
-        pp(myid)
-        return 0
+        #pp(myid)
+        return 
 
 
 

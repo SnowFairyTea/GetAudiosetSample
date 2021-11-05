@@ -27,12 +27,13 @@ ydl_opts = {
     }],
     'logger': MyLogger(),
     'progress_hooks': [my_hook],
-    'outtmpl': '%(id)s_long'+ '.%(ext)s',
+    'outtmpl': '%(id)s'+ '.%(ext)s',
     'ignoreerrors':False
 }
 def myyoutubedl(movieid):
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download(['https://www.youtube.com/watch?v='+movieid])
+    print("dl_finish")
 
 if __name__ == '__main__':
-    myyoutubedl("ygf0K8IvZFI")
+    myyoutubedl("--PJHxphWEs")
