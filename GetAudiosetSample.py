@@ -21,7 +21,7 @@ DIR = os.path.dirname(os.path.abspath(__file__))
 def main():
     argv=sys.argv
     if(len(argv) > 1):
-        target = ReadInputfile(argv[1])
+        target = argv[1]
     else:
         target="target"
     target=os.path.join(DIR,target)
