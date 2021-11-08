@@ -6,6 +6,9 @@
 Audiosetを用いた学習を行うため、wavファイルを簡単にダウンロードする手段が必要である。
 そのため、バッチファイルを作成した。
 
+### r3/11/8追記
+バッチファイルの保守が面倒だったので、pythonファイルに書き換えた
+
 
 
 ## 事前準備
@@ -21,12 +24,13 @@ Audiosetを用いた学習を行うため、wavファイルを簡単にダウン
 
 
 ## 使いかた
-事前準備を済ませた後、```GetAudiosetSample.bat```を実行する
+~~事前準備を済ませた後、```GetAudiosetSample.bat```を実行する~~  
+事前準備を済ませた後、```python GetAudiosetSample.py```を実行する
 
 引数としてディレクトリへの相対パスを指定することで、  
 targetファイルの代わりに別のファイルを用いることができる。
 
 
 ## 参考文献
-[リポジトリ](https://github.com/ytdl-org/youtube-dl/blob/master/README.md)
-[オプションの解説](https://masayoshi-9a7ee.hatenablog.com/entry/20150905/1441414821)
+[youtubr-dlリポジトリ](https://github.com/ytdl-org/youtube-dl/blob/master/README.md)
+[youtube-dlオプションの解説](https://masayoshi-9a7ee.hatenablog.com/entry/20150905/1441414821)
